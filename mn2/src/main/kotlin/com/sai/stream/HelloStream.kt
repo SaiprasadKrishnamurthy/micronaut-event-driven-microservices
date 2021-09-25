@@ -1,10 +1,10 @@
 package com.sai.stream
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.sai.config.NatsConfiguration
 import com.sai.eventlistener.EventListener
 import com.sai.model.Hello
 import com.sai.model.HelloEvent
-import com.sai.streamconfig.BaseStream
 import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Value
 import java.nio.charset.Charset
@@ -16,8 +16,9 @@ class HelloStream(
     @Value("\${hello.topic.name}") private val topic: String,
     @Value("\${hello.consumer.group.name}") private val consumerGroup: String,
     @Value("\${env}") private val env: String,
-    private val eventListener: EventListener
-) : BaseStream(eventListener, env) {
+    eventListener: EventListener,
+    natsConfiguration: NatsConfiguration
+) : AbstractStream(eventListener, env, natsConfiguration) {
 
     override fun streamName() = streamName
     override fun consumerGroupName() = consumerGroup

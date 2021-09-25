@@ -1,18 +1,20 @@
 package com.sai.stream
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.sai.config.NatsConfiguration
 import com.sai.eventlistener.EventListener
 import com.sai.model.BaseEvent
 import io.micronaut.context.annotation.Value
-import io.nats.client.Connection
-import io.nats.client.Dispatcher
-import io.nats.client.JetStream
-import io.nats.client.Nats
+import io.nats.client.*
 import io.nats.client.api.StorageType
 import io.nats.client.api.StreamConfiguration
+import java.time.Duration
 import javax.annotation.PostConstruct
 
-abstract class BaseStream(private val eventListener: EventListener, @Value("\${env}") private val env: String) {
+abstract class AbstractStream(private val eventListener: EventListener,
+                              @Value("\${env}") private val env: String,
+                              private val natsConfiguration: NatsConfiguration
+) {
     private lateinit var natsConnection: Connection
     private lateinit var jetStream: JetStream
     private lateinit var dispatcher: Dispatcher
@@ -24,7 +26,13 @@ abstract class BaseStream(private val eventListener: EventListener, @Value("\${e
 
     @PostConstruct
     fun init() {
-        natsConnection = Nats.connect()
+        val options: Options = Options.Builder()
+            .server(natsConfiguration.url)
+            .maxReconnects(natsConfiguration.maxReconnects!!)
+            .connectionTimeout(Duration.ofSeconds(natsConfiguration.connectionTimeoutSeconds!!))
+            // TODO Auth Handler and more connection props.
+            .build()
+        natsConnection = Nats.connect(options)
         dispatcher = natsConnection.createDispatcher()
         val jetStreamManagement = natsConnection.jetStreamManagement()
         val streamConfig = StreamConfiguration.builder()
