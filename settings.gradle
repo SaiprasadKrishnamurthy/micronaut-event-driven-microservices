@@ -1,0 +1,3 @@
+rootProject.name = 'mn-aggregator'
+include 'mn-common'
+include 'mn2'
