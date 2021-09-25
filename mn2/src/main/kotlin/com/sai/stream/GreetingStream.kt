@@ -1,9 +1,10 @@
-package com.sai.streamconfig
+package com.sai.stream
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.sai.eventlistener.EventListener
 import com.sai.model.Greeting
 import com.sai.model.GreetingEvent
+import com.sai.streamconfig.BaseStream
 import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Value
 import java.nio.charset.Charset

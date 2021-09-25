@@ -1,7 +1,7 @@
 package com.sai.service
 
 import com.sai.model.HelloEvent
-import com.sai.streamconfig.HelloStream
+import com.sai.stream.HelloStream
 import java.util.*
 import javax.inject.Singleton
 

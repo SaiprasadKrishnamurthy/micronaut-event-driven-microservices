@@ -1,4 +1,4 @@
-package com.sai.streamconfig
+package com.sai.stream
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.sai.eventlistener.EventListener

@@ -1,7 +1,7 @@
 package com.sai.service
 
 import com.sai.model.GreetingEvent
-import com.sai.streamconfig.GreetingStream
+import com.sai.stream.GreetingStream
 import java.util.*
 import javax.inject.Singleton
 
