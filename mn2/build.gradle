@@ -38,6 +38,9 @@ dependencies {
     implementation("com.sai:mn-common:0.1")
     implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.13.0-rc2'
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("io.micronaut.kafka:micronaut-kafka")
+    testImplementation("org.testcontainers:kafka")
+    testImplementation("org.awaitility:awaitility:4.1.0")
 }
 
 application {
